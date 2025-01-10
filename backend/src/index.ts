@@ -1,6 +1,6 @@
 import express, {Request, Response} from "express";
 
-const info: string[] = [];
+const info: any[] = [];
 
 const app = express();
 app.use(express.json());

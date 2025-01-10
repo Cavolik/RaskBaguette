@@ -1,6 +1,12 @@
-<p>admin-page works!</p>
-<form>
-  <input type="text">
-  <button>Add</button>
+<form [formGroup]="userForm">
+  <label for="fname">First Name</label>
+  <input id="fname" formControlName="lastName" type="text">
+
+  <label for="lname">Last Name</label>
+  <input id="lname" formControlName="firstName" type="text">
+
+  <label for="uname">Username</label>
+  <input id="uname" formControlName="userName" type="text">
+  <button (click)="createUser()" [disabled]="userForm.invalid">Add</button>
 </form>
 <button (click)="logAction()">Get</button>

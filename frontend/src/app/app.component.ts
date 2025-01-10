@@ -9,6 +9,13 @@ import { RouterLink, RouterOutlet,} from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
   title = 'frontend';
+}
+
+export type User = {
+  firstName: string,
+  lastName: string,
+  userName: string
 }
