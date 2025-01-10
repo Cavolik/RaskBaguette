@@ -8,7 +8,7 @@ describe('StorePageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [StorePageComponent]
+      imports: [StorePageComponent]
     });
     fixture = TestBed.createComponent(StorePageComponent);
     component = fixture.componentInstance;

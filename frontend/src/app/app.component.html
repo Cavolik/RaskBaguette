@@ -1,5 +1,7 @@
-<form>
-  <input type="text">
-  <button>Add</button>
-</form>
-<button (click)="logAction()">Get</button>
+<nav>
+  <button routerLink="store">Store</button>
+  <button routerLink="admin">Admin</button>
+  <button routerLink="profile">Profile</button>
+</nav>
+
+<router-outlet></router-outlet>
