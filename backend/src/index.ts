@@ -16,8 +16,9 @@ app.post("/api/info", (req: Request, res: Response) => {
     res.status(200);
 })
 
-connectToMongoDB();
+connectToMongoDB().then();
 
 app.listen(8080, () => {
     console.log("start");
+
 })
