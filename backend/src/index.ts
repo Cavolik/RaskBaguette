@@ -1,4 +1,5 @@
 import express, {Request, Response} from "express";
+import {connectToMongoDB} from "./database";
 
 const info: any[] = [];
 
@@ -14,7 +15,9 @@ app.post("/api/info", (req: Request, res: Response) => {
     console.log(info);
     res.status(200);
 })
+
+connectToMongoDB();
+
 app.listen(8080, () => {
     console.log("start");
-
 })
