@@ -17,7 +17,8 @@ export class AdminPageComponent {
     this.userForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      userName: ['', Validators.required]
+      userName: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 

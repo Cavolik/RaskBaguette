@@ -7,6 +7,10 @@
 
   <label for="uname">Username</label>
   <input id="uname" formControlName="userName" type="text">
+
+  <label for="pswd">Password</label>
+  <input id="pswd" formControlName="password" type="text">
+
   <button (click)="createUser()" [disabled]="userForm.invalid">Add</button>
 </form>
 <button (click)="logAction()">Get</button>
