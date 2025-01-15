@@ -3,14 +3,18 @@ import { connectToMongoDB} from "./database";
 import {User} from "./models/user";
 
 
-const info: any[] = [];
-
 const app = express();
 connectToMongoDB().then();
 app.use(express.json());
 
-app.get("/api/info", (req: Request, res: Response<string[]>) => {
-    res.status(200).json(info);
+app.get("/api/users", async (req: Request, res: Response) => {
+    const users = await User.find();
+
+    if (users?.length === 0) {
+        throw new Error("User list is empty");
+    }
+
+    res.status(200).json(users);
 });
 
 app.post("/api/info", async (req: Request, res: Response) => {

@@ -8,8 +8,8 @@ import { User } from "../app.component";
 export class AdminPageService {
 
   constructor(private http: HttpClient) { }
-  getInfo = () => {
-    return this.http.get('/api/info');
+  getUsers = () => {
+    return this.http.get('/api/users');
   }
 
   postInfo = (info: User) => {
