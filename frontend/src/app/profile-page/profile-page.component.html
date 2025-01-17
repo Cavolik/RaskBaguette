@@ -1,3 +1,7 @@
 <h1>{{this.user.firstName}} {{this.user.lastName}}</h1>
 
-<p>{{this.user.orderHistory}}</p>
+
+<div *ngFor="let product of this.user.orderHistory">
+  <p>{{product.productName}} {{product.productPrice}}kr</p>
+</div>
+
