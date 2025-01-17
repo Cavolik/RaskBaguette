@@ -1,0 +1,11 @@
+<h1>Log in</h1>
+<form [formGroup]="loginForm">
+  <label for="uname">Username</label>
+  <input id="uname" formControlName="userName" type="text">
+
+  <label for="pswd">Username</label>
+  <input id="pswd" formControlName="password" type="text">
+
+  <button (click)="logIn()" [disabled]="loginForm.invalid">Log in</button>
+</form>
+<button (click)="logOut()">Log Out</button>
