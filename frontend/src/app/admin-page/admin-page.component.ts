@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminPageService } from "./admin-page.service";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-admin-page',
@@ -12,6 +13,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
 })
 export class AdminPageComponent {
   userForm: FormGroup
+  users: Observable<any>|undefined;
 
   constructor(private adminService: AdminPageService, private fb: FormBuilder) {
     this.userForm = this.fb.group({
@@ -22,8 +24,6 @@ export class AdminPageComponent {
     });
   }
 
-
-
   createUser() {
     if (this.userForm.valid) {
       console.log(this.userForm.value)
@@ -31,8 +31,8 @@ export class AdminPageComponent {
     }
   }
 
-  logAction() {
-
+  getUsers() {
+    this.users = this.adminService.getUsers();
+    this.users.subscribe(user => console.log(user));
   }
-
 }
