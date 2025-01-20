@@ -1,10 +1,16 @@
-<h1>Log in</h1>
-<form [formGroup]="loginForm">
-  <label for="uname">Username</label>
-  <input id="uname" formControlName="userName" type="text">
+<div>
+  <h1>Log in</h1>
+  <form [formGroup]="loginForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input [formControl]="loginForm.controls.userName" matInput>
+      </mat-form-field>
 
-  <label for="pswd">Password</label>
-  <input id="pswd" formControlName="password" type="text">
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input [formControl]="loginForm.controls.password" matInput>
+      </mat-form-field>
 
-  <button (click)="logIn()" [disabled]="loginForm.invalid" routerLink="../store">Log in</button>
-</form>
+      <button mat-flat-button (click)="logIn()" [disabled]="!loginForm.valid" routerLink="../store">Log in</button>
+  </form>
+</div>
