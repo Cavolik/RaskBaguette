@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {StorePageService} from "./store-page.service";
+import {MatCardModule} from "@angular/material/card";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-store-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './store-page.component.html',
   styleUrls: ['./store-page.component.scss']
 })
