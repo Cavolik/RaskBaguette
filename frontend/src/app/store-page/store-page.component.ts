@@ -19,6 +19,7 @@ export class StorePageComponent {
   purchase(item: {productName: string, productPrice: number}) {
     this.user.orderHistory.push(item);
 
+    localStorage.setItem('loggedInUser', JSON.stringify(this.user));
     this.service.updateUser(this.user._id, this.user).subscribe();
   }
 }
