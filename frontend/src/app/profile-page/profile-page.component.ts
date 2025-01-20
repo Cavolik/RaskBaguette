@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatCardModule} from "@angular/material/card";
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [CommonModule],
+    imports: [CommonModule, MatCardModule],
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss']
 })

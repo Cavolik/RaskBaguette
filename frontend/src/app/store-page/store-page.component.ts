@@ -16,7 +16,7 @@ export class StorePageComponent {
     this.user = JSON.parse(localStorage.getItem('loggedInUser')||'{}');
   }
 
-  purchase(item: {productName: string, productPrice: number}) {
+  purchase(item: {productName: string, productPrice: number, image: string}) {
     this.user.orderHistory.push(item);
 
     localStorage.setItem('loggedInUser', JSON.stringify(this.user));
