@@ -6,6 +6,5 @@
   <label for="pswd">Password</label>
   <input id="pswd" formControlName="password" type="text">
 
-  <button (click)="logIn()" [disabled]="loginForm.invalid">Log in</button>
+  <button (click)="logIn()" [disabled]="loginForm.invalid" routerLink="../store">Log in</button>
 </form>
-<button (click)="logOut()">Log Out</button>

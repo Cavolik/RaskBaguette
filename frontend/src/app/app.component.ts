@@ -12,6 +12,12 @@ import { RouterLink, RouterOutlet,} from '@angular/router';
 
 export class AppComponent {
   title = 'frontend';
+
+  logOut() {
+    localStorage.clear();
+  }
+
+  protected readonly localStorage = localStorage;
 }
 
 export type User = {

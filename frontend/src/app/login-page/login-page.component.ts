@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { LoginPageService } from "./login-page.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
@@ -29,9 +30,5 @@ export class LoginPageComponent {
         console.log(obj);
       }
     });
-  }
-
-  logOut() {
-    localStorage.clear();
   }
 }
