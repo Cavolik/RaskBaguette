@@ -1,8 +1,10 @@
-<nav *ngIf="localStorage.getItem('loggedInUser')">
-  <button mat-button routerLink="store">Store</button>
-  <button mat-button routerLink="admin">Admin</button>
-  <button mat-button routerLink="profile">Profile</button>
-  <button mat-button routerLink="login" (click)="logOut()">Log out</button>
+<div>
+  <nav *ngIf="localStorage.getItem('loggedInUser')">
+    <button mat-button routerLink="store">Store</button>
+    <button mat-button routerLink="admin">Admin</button>
+    <button mat-button routerLink="profile">Profile</button>
+    <button mat-button routerLink="login" (click)="logOut()">Log out</button>
 </nav>
+</div>
 
 <router-outlet></router-outlet>

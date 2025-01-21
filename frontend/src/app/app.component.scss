@@ -1,7 +1,11 @@
+div {
+  display: grid;
+  justify-content: center;
+}
+
 nav {
   margin-top: 1.5rem;
-  margin-inline: 40rem;
+  width: 20rem;
   display: grid;
   grid-template-columns: auto auto auto auto;
-  justify-self: center;
 }
