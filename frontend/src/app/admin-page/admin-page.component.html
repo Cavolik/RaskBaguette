@@ -1,16 +1,28 @@
-<form [formGroup]="userForm">
-  <label for="fname">First Name</label>
-  <input id="fname" formControlName="lastName" type="text">
 
-  <label for="lname">Last Name</label>
-  <input id="lname" formControlName="firstName" type="text">
+<div>
+  <h1>Admin</h1>
+  <form [formGroup]="userForm">
+    <mat-form-field appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input [formControl]="userForm.controls.firstName" matInput>
+    </mat-form-field>
 
-  <label for="uname">Username</label>
-  <input id="uname" formControlName="userName" type="text">
+    <mat-form-field appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input [formControl]="userForm.controls.lastName" matInput>
+    </mat-form-field>
 
-  <label for="pswd">Password</label>
-  <input id="pswd" formControlName="password" type="text">
+    <mat-form-field appearance="outline">
+      <mat-label>Userame</mat-label>
+      <input [formControl]="userForm.controls.userName" matInput>
+    </mat-form-field>
 
-  <button (click)="createUser()" [disabled]="userForm.invalid">Add</button>
-</form>
-<button (click)="getUsers()">Get</button>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input [formControl]="userForm.controls.password" matInput>
+    </mat-form-field>
+
+  </form>
+  <button mat-button (click)="createUser()" [disabled]="userForm.invalid">Add</button>
+  <button mat-button (click)="getUsers()">Get</button>
+</div>
