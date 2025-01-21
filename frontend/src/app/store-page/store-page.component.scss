@@ -1,0 +1,28 @@
+div {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: auto;
+  margin-top: 1rem;
+}
+
+
+mat-card {
+  width: 25rem;
+  margin-block: 0.5rem;
+}
+
+mat-card-content {
+  align-self: start;
+}
+
+img {
+  height: 5rem;
+  width: 5rem;
+}
+
+button {
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+  margin-top: -2rem;
+  align-self: end;
+}

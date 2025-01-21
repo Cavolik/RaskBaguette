@@ -1,33 +1,33 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminPageService } from "./admin-page.service";
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import {Observable} from "rxjs";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Observable } from "rxjs";
+import { MatInputModule } from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-admin-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatButtonModule],
   templateUrl: './admin-page.component.html',
   styleUrls: ['./admin-page.component.scss']
 })
 export class AdminPageComponent {
-  userForm: FormGroup
+  userForm = new FormGroup({
+    firstName: new FormControl({ value: '', disabled: false }, { nonNullable: true, validators: [Validators.required]}),
+    lastName: new FormControl({ value: '', disabled: false }, { nonNullable: true, validators: [Validators.required]}),
+    userName: new FormControl({ value: '', disabled: false }, { nonNullable: true, validators: [Validators.required]}),
+    password: new FormControl({ value: '', disabled: false }, { nonNullable: true , validators: [Validators.required]}),
+  })
   users: Observable<any>|undefined;
 
-  constructor(private adminService: AdminPageService, private fb: FormBuilder) {
-    this.userForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      userName: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-  }
+  constructor(private adminService: AdminPageService) {}
 
   createUser() {
     if (this.userForm.valid) {
       console.log(this.userForm.value)
-      this.adminService.postInfo(this.userForm.value).subscribe();
+      this.adminService.postInfo(this.userForm.getRawValue()).subscribe();
     }
   }
 

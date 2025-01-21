@@ -2,7 +2,8 @@ import { Schema, model } from 'mongoose';
 
 interface Products {
     product: string,
-    price: number
+    price: number,
+    image: string,
 }
 
 const productSchema = new Schema<Products>({
@@ -13,6 +14,10 @@ const productSchema = new Schema<Products>({
     price: {
         type: Number,
         required: [true, "Price should not be empty"]
+    },
+    image: {
+        type: String,
+        required: [true, "Image should not be empty"]
     }
 }, {timestamps: true});
 
