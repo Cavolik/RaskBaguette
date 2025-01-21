@@ -1,27 +1,29 @@
-<h1>Store</h1>
+<div>
+    <h1>Store</h1>
 
-<mat-card appearance="outlined">
-    <mat-card-header>
-        <mat-card-title>Bread</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <div>
-            <p>2000 kr</p>
-            <img src="https://silverhillsbakery.ca/wp-content/uploads/2023/04/SHB-Bread-Slices_Whole-256x256px_Omegamazing.png">
-        </div>
-    </mat-card-content>
-    <button mat-button (click)="purchase({productName:'Bread', productPrice:2000, image:'https://silverhillsbakery.ca/wp-content/uploads/2023/04/SHB-Bread-Slices_Whole-256x256px_Omegamazing.png'})">Purchase</button>
-</mat-card>
+    <mat-card appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>Bread</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div>
+                <p>2000 kr</p>
+                <img src="https://silverhillsbakery.ca/wp-content/uploads/2023/04/SHB-Bread-Slices_Whole-256x256px_Omegamazing.png">
+            </div>
+        </mat-card-content>
+        <button mat-button (click)="purchase({productName:'Bread', productPrice:2000, image:'https://silverhillsbakery.ca/wp-content/uploads/2023/04/SHB-Bread-Slices_Whole-256x256px_Omegamazing.png'})">Purchase</button>
+    </mat-card>
 
-<mat-card appearance="outlined">
-    <mat-card-header>
-        <mat-card-title>Water</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <div>
-            <p>5300 kr</p>
-            <img src="https://d1rig8ldkblbsy.cloudfront.net/app/uploads/2023/05/18114315/water-256x256.jpg">
-        </div>
-    </mat-card-content>
-    <button mat-button (click)="purchase({productName:'Water', productPrice:5300, image:'https://d1rig8ldkblbsy.cloudfront.net/app/uploads/2023/05/18114315/water-256x256.jpg'})">Water</button>
-</mat-card>
+    <mat-card appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>Water</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div>
+                <p>5300 kr</p>
+                <img src="https://d1rig8ldkblbsy.cloudfront.net/app/uploads/2023/05/18114315/water-256x256.jpg">
+            </div>
+        </mat-card-content>
+        <button mat-button (click)="purchase({productName:'Water', productPrice:5300, image:'https://d1rig8ldkblbsy.cloudfront.net/app/uploads/2023/05/18114315/water-256x256.jpg'})">Water</button>
+    </mat-card>
+</div>

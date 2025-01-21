@@ -1,9 +1,18 @@
-h1 {
-  margin-left: 3rem;
+div {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: auto;
+  margin-top: 1rem;
 }
 
+
 mat-card {
-  margin: 2rem;
+  width: 25rem;
+  margin-block: 0.5rem;
+}
+
+mat-card-content {
+  align-self: start;
 }
 
 img {

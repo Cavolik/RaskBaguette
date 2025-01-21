@@ -1,11 +1,16 @@
-<h1>{{this.user.firstName}} {{this.user.lastName}}</h1>
+<div>
+  <h1>{{this.user.firstName}} {{this.user.lastName}}</h1>
 
 
-<mat-card *ngFor="let product of this.user.orderHistory" appearance="outlined">
-  <mat-card-header>
-    <mat-card-title>{{product.productName}}</mat-card-title>
-    <mat-card-subtitle>{{product.productPrice}}kr</mat-card-subtitle>
-  </mat-card-header>
-  <img src="{{product.image}}">
-</mat-card>
-
+  <mat-card *ngFor="let product of this.user.orderHistory" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{product.productName}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <p>{{product.productPrice}} kr</p>
+        <img src="{{product.image}}">
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
