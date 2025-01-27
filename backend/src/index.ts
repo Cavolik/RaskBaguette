@@ -81,6 +81,20 @@ app.post('/api/login', async (req: Request, res: Response, next: NextFunction) =
   }
 });
 
+app.delete('/api/login', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    req.session.destroy((error: unknown) => {
+      if (error) {
+        return res.status(500).json({ msg: 'Logout failed' });
+      }
+      res.clearCookie('connect.sid'); // this instructs the browser to delete the cookie, default name for express session cookie is connect.sid;
+      return res.status(200).json({ msg: 'Logged out successfully' });
+    });
+  } catch (error: unknown) {
+    return next(error);
+  }
+});
+
 app.post('/api/info', async (req: Request, res: Response) => {
   const { firstName, lastName, userName, password } = req.body;
 
