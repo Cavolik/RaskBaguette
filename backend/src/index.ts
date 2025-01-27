@@ -9,7 +9,7 @@ Install with npm i express-session --save, when using typescript we install the 
  */
 import session from 'express-session';
 
-const app = express();
+export const app = express();
 connectToMongoDB().then();
 
 app.use(express.json());
