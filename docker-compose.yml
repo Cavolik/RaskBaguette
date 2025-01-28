@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6.0-rc
+    container_name: mongo_db2
+    volumes:
+      - /home/thomas/work/tmp/mongo2:/data/db
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/baguette"
+    depends_on:
+      - mongo
+
