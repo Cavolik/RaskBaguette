@@ -2,8 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
+    "clean": "tsc --build --clean",
+    "build": "npm run clean && tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx nodemon src/index.ts"
   },
