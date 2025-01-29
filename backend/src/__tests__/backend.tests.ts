@@ -1,6 +1,8 @@
 import request from 'supertest';
-import { app } from '../index';
+import { app } from '../app';
 import TestDb from '../utils/testDb';
+import { User } from '../models/user';
+import { hashPassword } from '../utils/authUtils';
 
 const testDb = new TestDb();
 
@@ -18,6 +20,15 @@ afterEach(async () => {
 
 describe('Backend tests', () => {
   describe('/api/login', () => {
+    beforeEach(async () => {
+      await User.create({
+        userName: 'test',
+        password: hashPassword('test'),
+        firstName: 'test',
+        lastName: 'test',
+      });
+    });
+
     describe('POST', () => {
       it('should login to the app', async () => {
         const response = await request(app)
@@ -37,9 +48,8 @@ describe('Backend tests', () => {
         const response = await request(app)
           .post('/api/login')
           .send({ username: 'test', password: 'test' });
-        console.log(response.headers['set-cookie']);
-        expect(response.statusCode).toBe(200);
         expect(response.headers['set-cookie']).toBeDefined();
+        expect(response.statusCode).toBe(200);
       });
 
       it('should return 200 and set-cookie header should contain backendsession', async () => {
@@ -47,7 +57,6 @@ describe('Backend tests', () => {
           .post('/api/login')
           .send({ username: 'test', password: 'test' });
         const setCookieHeader: string = response.headers['set-cookie'][0];
-        console.log(setCookieHeader);
         expect(setCookieHeader.split('=')[0]).toBe('backendsession');
       });
     });
