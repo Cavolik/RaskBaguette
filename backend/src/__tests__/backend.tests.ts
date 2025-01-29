@@ -19,16 +19,15 @@ afterEach(async () => {
 });
 
 describe('Backend tests', () => {
-  describe('/api/login', () => {
-    beforeEach(async () => {
-      await User.create({
-        userName: 'test',
-        password: hashPassword('test'),
-        firstName: 'test',
-        lastName: 'test',
-      });
+  beforeEach(async () => {
+    await User.create({
+      userName: 'test',
+      password: hashPassword('test'),
+      firstName: 'test',
+      lastName: 'test',
     });
-
+  });
+  describe('/api/login', () => {
     describe('POST', () => {
       it('should login to the app', async () => {
         const response = await request(app)
