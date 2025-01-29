@@ -3,8 +3,17 @@ import { app } from '../app';
 import TestDb from '../utils/testDb';
 import { User } from '../models/user';
 import { hashPassword } from '../utils/authUtils';
+import {Cookie} from "express-session";
 
 const testDb = new TestDb();
+const loginUser = async (username: string, password: string)=> {
+  const response = await request(app)
+      .post('/api/login')
+      .send({ username: 'test', password: 'test' });
+
+  const headers = response.headers as { [key: string]: string | string[] };
+  return headers?.['set-cookie'] as string;
+}
 
 beforeAll(async () => {
   await testDb.connect();
@@ -19,16 +28,15 @@ afterEach(async () => {
 });
 
 describe('Backend tests', () => {
-  describe('/api/login', () => {
-    beforeEach(async () => {
-      await User.create({
-        userName: 'test',
-        password: hashPassword('test'),
-        firstName: 'test',
-        lastName: 'test',
-      });
+  beforeEach(async () => {
+    await User.create({
+      userName: 'test',
+      password: hashPassword('test'),
+      firstName: 'test',
+      lastName: 'test',
     });
-
+  });
+  describe('/api/login', () => {
     describe('POST', () => {
       it('should login to the app', async () => {
         const response = await request(app)
@@ -58,6 +66,20 @@ describe('Backend tests', () => {
           .send({ username: 'test', password: 'test' });
         const setCookieHeader: string = response.headers['set-cookie'][0];
         expect(setCookieHeader.split('=')[0]).toBe('backendsession');
+      });
+    });
+  });
+  describe('/api/users', () => {
+    const url = '/api/users';
+    describe('GET', () => {
+      it('should return 200 and a list of users', async () => {
+        const response = await request(app).get(url).set('Cookie', await loginUser('test', 'test'));
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toBeInstanceOf(Array);
+      })
+      it('should return 401 when not logged in', async () => {
+        const response = await request(app).get(url);
+        expect(response.statusCode).toBe(401);
       });
     });
   });
