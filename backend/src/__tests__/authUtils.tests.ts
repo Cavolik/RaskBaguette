@@ -15,4 +15,9 @@ describe('Auth util tests', () => {
     const result = verifyHashedPassword(password, hashedPassword);
     expect(result).toBe(true);
   });
+
+  it('should generate a password', async () => {
+    console.log(hashPassword('test'));
+    console.log(hashPassword('test2'));
+  });
 });
