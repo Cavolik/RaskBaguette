@@ -1,5 +1,20 @@
 import request from 'supertest';
 import { app } from '../index';
+import TestDb from '../utils/testDb';
+
+const testDb = new TestDb();
+
+beforeAll(async () => {
+  await testDb.connect();
+});
+
+afterAll(async () => {
+  await testDb.close();
+});
+
+afterEach(async () => {
+  await testDb.clear();
+});
 
 describe('Backend tests', () => {
   describe('/api/login', () => {
