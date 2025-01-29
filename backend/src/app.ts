@@ -8,6 +8,11 @@ Install with npm i express-session --save, when using typescript we install the 
  */
 import session from 'express-session';
 import { verifyHashedPassword } from './utils/authUtils';
+import request from "supertest";
+const checkLogin = (req: Request, res: Response) => {
+  if (req.session && !req.session.userId) {return res.status(401).send()}
+  return true;
+}
 
 export const app = express();
 
@@ -43,9 +48,7 @@ app.use(
 app.get('/api/users', async (req: Request, res: Response, next: NextFunction) => {
   try {
     console.log(req.session);
-    if (req.session && !req.session.userId) {
-      return res.status(401).send();
-    }
+    checkLogin(req, res);
     const users = await User.find();
     res.status(200).json(users);
   } catch (e:unknown) {
