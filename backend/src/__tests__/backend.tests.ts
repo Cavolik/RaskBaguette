@@ -3,8 +3,17 @@ import { app } from '../app';
 import TestDb from '../utils/testDb';
 import { User } from '../models/user';
 import { hashPassword } from '../utils/authUtils';
+import {Cookie} from "express-session";
 
 const testDb = new TestDb();
+const loginUser = async (username: string, password: string)=> {
+  const response = await request(app)
+      .post('/api/login')
+      .send({ username: 'test', password: 'test' });
+
+  const headers = response.headers as { [key: string]: string | string[] };
+  return headers?.['set-cookie'] as string;
+}
 
 beforeAll(async () => {
   await testDb.connect();
@@ -64,7 +73,7 @@ describe('Backend tests', () => {
     const url = '/api/users';
     describe('GET', () => {
       it('should return 200 and a list of users', async () => {
-        const response = await request(app).get(url);
+        const response = await request(app).get(url).set('Cookie', await loginUser('test', 'test'));
         expect(response.statusCode).toBe(200);
         expect(response.body).toBeInstanceOf(Array);
       })

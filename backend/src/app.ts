@@ -40,13 +40,17 @@ app.use(
   })
 );
 
-app.get('/api/users', async (req: Request, res: Response) => {
-  console.log(req.session);
-  if (req.session && !req.session.userId) {
-    return res.status(401);
+app.get('/api/users', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    console.log(req.session);
+    if (req.session && !req.session.userId) {
+      return res.status(401).send();
+    }
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (e:unknown) {
+    return next(e);
   }
-  const users = await User.find();
-  res.status(200).json(users);
 });
 
 declare module 'express-session' {
