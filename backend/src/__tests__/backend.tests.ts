@@ -23,6 +23,7 @@ describe('Backend tests', () => {
           .post('/api/login')
           .send({ username: 'test', password: 'test' });
         console.log(response.headers['set-cookie']);
+        expect(response.statusCode).toBe(200);
         expect(response.headers['set-cookie']).toBeDefined();
       });
 
