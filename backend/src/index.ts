@@ -8,6 +8,7 @@ This is the conventional way of authenticating a client application to a backend
 Install with npm i express-session --save, when using typescript we install the types with npm i @types/express-session --save-dev
  */
 import session from 'express-session';
+import { verifyHashedPassword } from './utils/authUtils';
 
 export const app = express();
 connectToMongoDB().then();
@@ -75,15 +76,13 @@ declare module 'express-session' {
 app.post('/api/login', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { username, password } = req.body; // we extract username and password from the request body. We have typed the request object and specified how the request body looks.
-    console.log(req.body);
     //find the user
     const user = userDatabase.find((user) => user.username === username);
-    if (!user || user.password !== password) {
+    if (!user || !verifyHashedPassword(password, user.password)) {
       //if no user is found or the user.password is not equal to password in the body, we return 401
       return res.status(401).json({ msg: 'Unauthorized' });
     }
     req.session.userId = user.id;
-    console.log(req.session); //print the session to show that the userId is set
     return res.status(200).json({ msg: 'Logged in' });
   } catch (error: unknown) {
     // we type everything, error is unknown so we type it as such so we have to assert what it is later.
