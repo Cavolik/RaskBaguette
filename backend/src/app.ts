@@ -41,12 +41,11 @@ app.use(
 );
 
 app.get('/api/users', async (req: Request, res: Response) => {
-  const users = await User.find();
-
-  if (users?.length === 0) {
-    throw new Error('User list is empty');
+  console.log(req.session);
+  if (req.session && !req.session.userId) {
+    return res.status(401);
   }
-
+  const users = await User.find();
   res.status(200).json(users);
 });
 

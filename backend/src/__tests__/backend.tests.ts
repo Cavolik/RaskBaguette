@@ -60,4 +60,18 @@ describe('Backend tests', () => {
       });
     });
   });
+  describe('/api/users', () => {
+    const url = '/api/users';
+    describe('GET', () => {
+      it('should return 200 and a list of users', async () => {
+        const response = await request(app).get(url);
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toBeInstanceOf(Array);
+      })
+      it('should return 401 when not logged in', async () => {
+        const response = await request(app).get(url);
+        expect(response.statusCode).toBe(401);
+      });
+    });
+  });
 });
