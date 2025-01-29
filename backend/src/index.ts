@@ -20,6 +20,7 @@ requires the session object can access it.
  */
 app.use(
   session({
+    name: 'backendsession',
     secret: process.env.SESSION_SECRET || 'dev-secret', //the key that the session will be hashed with to make it unique for this server
     resave: false, //if the session should be saved to the store even if it wasn't modified
     /*
