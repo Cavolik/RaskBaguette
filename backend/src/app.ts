@@ -10,9 +10,12 @@ import session from 'express-session';
 import { verifyHashedPassword } from './utils/authUtils';
 import request from "supertest";
 const checkLogin = (req: Request, res: Response) => {
-  if (req.session && !req.session.userId) {return res.status(401).send()}
-  return true;
-}
+    if (req.session && !req.session.userId) {
+      res.status(401).send();
+      return false;
+    }
+    return true;
+};
 
 export const app = express();
 
@@ -47,7 +50,7 @@ app.use(
 
 app.get('/api/users', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    checkLogin(req, res);
+    if (!checkLogin(req, res)) return;
     const users = await User.find();
     res.status(200).json(users);
   } catch (e:unknown) {
@@ -81,7 +84,7 @@ app.post('/api/login', async (req: Request, res: Response, next: NextFunction) =
 
 app.delete('/api/login', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    checkLogin(req, res);
+    if (!checkLogin(req, res)) return;
     req.session.destroy((error: unknown) => {
       if (error) {
         return res.status(500).json({ msg: 'Logout failed' });
@@ -96,7 +99,7 @@ app.delete('/api/login', async (req: Request, res: Response, next: NextFunction)
 
 app.post('/api/info', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    checkLogin(req, res);
+    if (!checkLogin(req, res)) return;
     const {firstName, lastName, userName, password} = req.body;
 
     if (!firstName || !lastName || !userName || !password) {
@@ -112,7 +115,7 @@ app.post('/api/info', async (req: Request, res: Response, next: NextFunction) =>
 
 app.put('/api/update/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    checkLogin(req, res);
+    if (!checkLogin(req, res)) return;
     const id = req.params.id;
 
     const user = await User.findOneAndUpdate({_id: id}, req.body);
