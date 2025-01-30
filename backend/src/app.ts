@@ -81,6 +81,7 @@ app.post('/api/login', async (req: Request, res: Response, next: NextFunction) =
 
 app.delete('/api/login', async (req: Request, res: Response, next: NextFunction) => {
   try {
+    checkLogin(req, res);
     req.session.destroy((error: unknown) => {
       if (error) {
         return res.status(500).json({ msg: 'Logout failed' });
