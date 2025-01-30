@@ -71,6 +71,14 @@ describe('Backend tests', () => {
         expect(setCookieHeader.split('=')[0]).toBe('backendsession');
       });
     });
+    describe('DELETE', () => {
+      it('should return 401 when not logged in', async () => {
+        const response = await request(app)
+            .delete(url)
+            .send();
+        expect(response.statusCode).toBe(401);
+      })
+    });
   });
   describe('/api/users', () => {
     const url = '/api/users';
