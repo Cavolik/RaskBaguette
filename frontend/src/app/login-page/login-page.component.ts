@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { LoginPageService } from "./login-page.service";
-import {Router, RouterLink} from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { MatInputModule } from "@angular/material/input";
-import {MatButtonModule} from "@angular/material/button";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   selector: 'app-login-page',
@@ -22,16 +22,9 @@ export class LoginPageComponent {
 
   logIn() {
     this.service.logIn(this.loginForm.getRawValue()).subscribe(response => {
-      console.log(response.status);
+      if (response.status === 200) {
+        void this.router.navigate(['../store']);
+      }
     });
   }
 }
-// const userArray = user;
-// console.log(userArray);
-// if (userArray) {
-//   // localStorage.clear();
-//   // localStorage.setItem('loggedInUser', JSON.stringify(userArray[0]));
-//   // const obj = JSON.parse(localStorage.getItem('loggedInUser')||'{}');
-//   // console.log(obj);
-//   void this.router.navigate(['../store']);
-// }
