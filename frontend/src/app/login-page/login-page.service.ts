@@ -8,6 +8,6 @@ export class LoginPageService {
 
   constructor(private http: HttpClient) { }
   logIn = (loginValue: {userName: string, password: string}) => {
-    return this.http.post('/api/login', loginValue);
+    return this.http.post('/api/login', loginValue, { observe: 'response' });
   }
 }

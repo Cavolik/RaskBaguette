@@ -14,3 +14,14 @@ form {
 mat-form-field {
   width: 100%;
 }
+
+.error {
+  border-radius: 0.3rem;
+  background-color: red;
+  margin-top: 1rem;
+  span {
+    font-weight: bold;
+    color: white;
+    margin-block: 1rem;
+  }
+}

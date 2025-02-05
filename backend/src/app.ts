@@ -67,9 +67,9 @@ declare module 'express-session' {
 
 app.post('/api/login', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { username, password } = req.body; // we extract username and password from the request body. We have typed the request object and specified how the request body looks.
+    const { userName, password } = req.body; // we extract username and password from the request body. We have typed the request object and specified how the request body looks.
     //find the user
-    const user = await User.findOne({userName: username});
+    const user = await User.findOne({userName: userName});
     if (!user || !verifyHashedPassword(password, user.password)) {
       //if no user is found or the user.password is not equal to password in the body, we return 401
       return res.status(401).json({ msg: 'Unauthorized' });
