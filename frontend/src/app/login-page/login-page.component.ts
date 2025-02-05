@@ -18,12 +18,19 @@ export class LoginPageComponent {
     userName: new FormControl({ value: '', disabled: false }, { nonNullable: true, validators: [Validators.required]}),
     password: new FormControl({ value: '', disabled: false }, { nonNullable: true , validators: [Validators.required]}),
   })
+  errorMessage: string|undefined;
   constructor(private service: LoginPageService, private router: Router) {}
-
   logIn() {
     this.service.logIn(this.loginForm.getRawValue()).subscribe(response => {
       if (response.status === 200) {
+        this.errorMessage = undefined;
         void this.router.navigate(['../store']);
+      }
+    }, error => {
+      if (error.status === 401) {
+        this.errorMessage = 'Cannot log in: Username or password is invalid'
+      } else {
+        this.errorMessage = error.status;
       }
     });
   }
