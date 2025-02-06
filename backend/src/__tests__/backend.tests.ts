@@ -4,12 +4,13 @@ import TestDb from '../utils/testDb';
 import { User } from '../models/user';
 import { hashPassword } from '../utils/authUtils';
 import {Cookie} from "express-session";
+import {response} from "express";
 
 const testDb = new TestDb();
 const loginUser = async (username: string, password: string)=> {
   const response = await request(app)
       .post('/api/login')
-      .send({ username: 'test', password: 'test' });
+      .send({ userName: 'test', password: 'test' });
 
   const headers = response.headers as { [key: string]: string | string[] };
   return headers?.['set-cookie'] as string;
@@ -44,21 +45,21 @@ describe('Backend tests', () => {
       it('should login to the app', async () => {
         const response = await request(app)
           .post(url)
-          .send({ username: 'test', password: 'test' });
+          .send({ userName: 'test', password: 'test' });
         expect(response.statusCode).toBe(200);
       });
 
       it('should return 401 when wrong password', async () => {
         const response = await request(app)
           .post(url)
-          .send({ username: 'test', password: 'wrong' });
+          .send({ userName: 'test', password: 'wrong' });
         expect(response.statusCode).toBe(401);
       });
 
       it('should contain Set-Cookie in response.headers when successfully logged in', async () => {
         const response = await request(app)
           .post(url)
-          .send({ username: 'test', password: 'test' });
+          .send({ userName: 'test', password: 'test' });
         expect(response.headers['set-cookie']).toBeDefined();
         expect(response.statusCode).toBe(200);
       });
@@ -66,7 +67,7 @@ describe('Backend tests', () => {
       it('should return 200 and set-cookie header should contain backendsession', async () => {
         const response = await request(app)
           .post(url)
-          .send({ username: 'test', password: 'test' });
+          .send({ userName: 'test', password: 'test' });
         const setCookieHeader: string = response.headers['set-cookie'][0];
         expect(setCookieHeader.split('=')[0]).toBe('backendsession');
       });
@@ -126,6 +127,20 @@ describe('Backend tests', () => {
             .send({firstName:'test2', lastName:'test2', userName:'test2', password:'test2'});
         expect(response.statusCode).toBe(401);
       });
+    });
+  });
+  describe('/api/session-status', () => {
+    const url = '/api/session-status';
+    it('should return 200 and userId', async () => {
+      const response = await request(app)
+          .get(url)
+          .set('Cookie', await loginUser('test', 'test'));
+      expect(response.statusCode).toBe(200);
+      expect(response.body.userId).toBe(id);
+    });
+    it('should return 401 when not logged in', async () => {
+      const response = await request(app).get(url);
+      expect(response.statusCode).toBe(401);
     });
   });
 });

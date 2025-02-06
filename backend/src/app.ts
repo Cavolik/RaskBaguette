@@ -124,3 +124,12 @@ app.put('/api/update/:id', async (req: Request, res: Response, next: NextFunctio
     return next(error);
   }
 });
+
+app.get('/api/session-status', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (!checkLogin(req, res)) return;
+    res.status(200).json({userId: req.session.userId});
+  } catch (error: unknown) {
+    return next(error);
+  }
+});
