@@ -133,3 +133,18 @@ app.get('/api/session-status', async (req: Request, res: Response, next: NextFun
     return next(error);
   }
 });
+
+app.get('/api/current-user', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (!checkLogin(req, res)) return;
+    const user = await User.findOne({_id: req.session.userId});
+
+    //if statement will always be true, since it cannot be reached without user existing
+    if (user) {
+      const returnUser = {firstName: user.firstName, lastName: user.lastName, orderHistory: user.orderHistory};
+      res.status(200).json(returnUser);
+    }
+  } catch (error: unknown) {
+    return next(error);
+  }
+});
