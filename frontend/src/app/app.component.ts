@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatButtonModule } from "@angular/material/button";
 import { AppComponentService } from "./app.component.service";
+import { LoginPageService } from "./login-page/login-page.service";
+import { of } from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -13,23 +15,16 @@ import { AppComponentService } from "./app.component.service";
 })
 
 export class AppComponent {
-  constructor(private service: AppComponentService) {}
-
   title = 'frontend';
-  userStatus = false;
+  userIsLoggedIn = of (false);
+  constructor(private service: AppComponentService, private loginService: LoginPageService) {
+    this.userIsLoggedIn = this.loginService.userIsLoggedIn;
+    this.loginService.getSessionStatus().subscribe();
+  }
+
   logOut() {
-    localStorage.clear();
+    this.loginService.logout().subscribe();
   }
-
-  getLoggedInUser() {
-    this.service.getLoggedInUser().subscribe(response => {
-      if (response.status === 200) {
-        this.userStatus = true;
-      }
-    });
-  }
-
-  protected readonly localStorage = localStorage;
 }
 
 export type User = {
