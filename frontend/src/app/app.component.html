@@ -1,5 +1,5 @@
 <div>
-  <nav *ngIf="localStorage.getItem('loggedInUser')">
+  <nav *ngIf="userIsLoggedIn | async">
     <button mat-button routerLink="store">Store</button>
     <button mat-button routerLink="admin">Admin</button>
     <button mat-button routerLink="profile">Profile</button>

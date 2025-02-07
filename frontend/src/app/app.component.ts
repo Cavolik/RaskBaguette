@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet,} from '@angular/router';
-import {MatButtonModule} from "@angular/material/button";
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { MatButtonModule } from "@angular/material/button";
+import { AppComponentService } from "./app.component.service";
+import { LoginPageService } from "./login-page/login-page.service";
+import { of } from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -13,12 +16,15 @@ import {MatButtonModule} from "@angular/material/button";
 
 export class AppComponent {
   title = 'frontend';
-
-  logOut() {
-    localStorage.clear();
+  userIsLoggedIn = of (false);
+  constructor(private service: AppComponentService, private loginService: LoginPageService) {
+    this.userIsLoggedIn = this.loginService.userIsLoggedIn;
+    this.loginService.getSessionStatus().subscribe();
   }
 
-  protected readonly localStorage = localStorage;
+  logOut() {
+    this.loginService.logout().subscribe();
+  }
 }
 
 export type User = {
