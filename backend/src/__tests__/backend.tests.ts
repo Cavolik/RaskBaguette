@@ -143,4 +143,18 @@ describe('Backend tests', () => {
       expect(response.statusCode).toBe(401);
     });
   });
+  describe('/api/current-user', () => {
+    const url = '/api/current-user';
+    it('should return 200, name ad purchase history of user', async ()=> {
+      const response = await request(app)
+          .get(url)
+          .set('Cookie', await loginUser('test', 'test'));
+      expect(response.statusCode).toBe(200);
+      expect(response.body).toStrictEqual({firstName: 'test', lastName: 'test', orderHistory: []})
+    });
+    it('should return 401 when not logged in', async ()=> {
+      const response = await request(app).get(url);
+      expect(response.statusCode).toBe(401);
+    });
+  });
 });
