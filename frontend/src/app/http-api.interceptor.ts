@@ -16,12 +16,10 @@ export class HttpApiInterceptor implements HttpInterceptor {
 
   private handleApiError(res: HttpErrorResponse) {
     if (res.status === 401) {
-      console.log('401');
       if (!(this.router.url === '/login')) {
         this.router.navigate(['/login']);
       }
     }
-    console.log(new Date());
     return throwError(() => res);
   }
 }
