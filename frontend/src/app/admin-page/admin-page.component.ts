@@ -31,7 +31,7 @@ export class AdminPageComponent {
     }
   }
 
-  getUsers() {
+  getAllUsers() {
     this.users = this.adminService.getUsers();
     this.users.subscribe(user => console.log(user));
   }

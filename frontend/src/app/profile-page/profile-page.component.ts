@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatCardModule} from "@angular/material/card";
+import { MatCardModule } from "@angular/material/card";
+import {ProfilePageService} from "./profile-page.service";
 
 @Component({
   selector: 'app-profile-page',
@@ -9,9 +10,13 @@ import {MatCardModule} from "@angular/material/card";
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss']
 })
-export class ProfilePageComponent {
+export class ProfilePageComponent implements OnInit{
   user: any;
-  constructor() {
-    this.user = JSON.parse(localStorage.getItem('loggedInUser')||'{firstName: "User", lastName: "Name", orderHistory: []}');
+  ngOnInit() {
+    this.service.getCurrentUser().subscribe(response => {
+      this.user = response;
+    });
   }
+
+  constructor(private service: ProfilePageService) {}
 }
