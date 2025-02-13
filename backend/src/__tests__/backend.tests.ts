@@ -106,6 +106,13 @@ describe('Backend tests', () => {
             .send({firstName:'test', lastName:'test', userName:'test', password:'test'});
         expect(response.statusCode).toBe(401);
       });
+      it('should return 201 and create a new user', async () => {
+        const response = await request(app)
+            .post(url)
+            .send({firstName:'test', lastName:'test', userName:'test', password:'test'})
+            .set('Cookie', await loginUser('test', 'test'));
+        expect(response.statusCode).toBe(201);
+      });
     });
   });
   describe('/api/update/:id', () => {

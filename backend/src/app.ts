@@ -7,7 +7,7 @@ This is the conventional way of authenticating a client application to a backend
 Install with npm i express-session --save, when using typescript we install the types with npm i @types/express-session --save-dev
  */
 import session from 'express-session';
-import { verifyHashedPassword } from './utils/authUtils';
+import { verifyHashedPassword, hashPassword } from './utils/authUtils';
 import request from "supertest";
 const checkLogin = (req: Request, res: Response) => {
     if (req.session && !req.session.userId) {
@@ -106,8 +106,9 @@ app.post('/api/info', async (req: Request, res: Response, next: NextFunction) =>
       throw new Error('Does not mach required user format');
     }
 
-    const newUser = await User.create(req.body);
-    res.status(201).json({ user: newUser, msg: 'User has been created' });
+    const user = {firstName: req.body.firstName, lastName: req.body.lastName, userName: req.body.userName, password: hashPassword(req.body.password)};
+    const newUser = await User.create(user);
+    res.status(201).json({ msg: 'User has been created' });
   } catch (error: unknown) {
     return next(error);
   }
